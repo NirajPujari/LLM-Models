@@ -1,15 +1,12 @@
-import { StaticImageData } from 'next/image';
-import { placeHolder } from '@assets/placeHolder/placeHolder.png';
-
 type memberT = {
   name: string;
-  image: StaticImageData;
+  image: string;
 }
 
 export const Members: memberT[] = [
-  { name: "Niraj Pujari", image: placeHolder },
-  { name: "Akshay Nair", image: placeHolder },
-  { name: "Trupti Sarang", image: placeHolder },
-  { name: "Arjun Punna", image: placeHolder },
-  { name: "Swaraj Patil", image: placeHolder },
+  { name: "Niraj Pujari", image: "/placeHolder/placeHolder.png" },
+  { name: "Akshay Nair", image: "/placeHolder/placeHolder.png" },
+  { name: "Trupti Sarang", image: "/placeHolder/placeHolder.png" },
+  { name: "Arjun Punna", image: "/placeHolder/placeHolder.png" },
+  { name: "Swaraj Patil", image: "/placeHolder/placeHolder.png" },
 ] 
