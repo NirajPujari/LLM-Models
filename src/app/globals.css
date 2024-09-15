@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary-rgb: 28, 28, 28;
+  --secondary-rgb: 79, 79, 79;
+  --accent-rgb: 107, 107, 107;
+  --button-rgb: 211, 211, 211;
+}
+
+body {
+  color: rgb(var(--primary-rgb));
+  background: linear-gradient(to bottom,
+      transparent,
+      rgb(var(--accent-rgb))) rgb(var(--secondary-rgb));
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
