@@ -1,5 +1,5 @@
 import { StaticImageData } from 'next/image';
-import placeHolder from '../assets/placeHolder/placeHolder.png'
+import { placeHolder } from '@assets/placeHolder/placeHolder.png';
 
 type memberT = {
   name: string;
