@@ -43,7 +43,7 @@ export const Models: modelT[] = [
     name: "BART-Large-CNN",
     company: "Facebook",
     type: "summarization",
-    link: "https://huggingface.co/facebook/bart-large-cnn",
+    link: "summerizer",
     desc: "The facebook/bart-large-cnn model is an abstractive summarization model developed by Facebook. It is designed to generate concise summaries of large pieces of text while retaining the most important information. The model is based on the BART architecture, a transformer-based sequence-to-sequence model optimized for text summarization."
   }
 

@@ -1,30 +1,18 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import { Header, Footer } from "@/components";
 import { ArrowRight, Loader2 } from "lucide-react";
-import ReactMarkdown from "react-markdown";
 
 const Page: React.FC = () => {
 	const [loading, setLoading] = useState<boolean>(false);
-	const [messages, setMessages] = useState<string[][]>([]);
+	const [messages, setMessages] = useState<string | null>(null);
 	const [textInput, setTextInput] = useState<string>("");
-	const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
-	useEffect(() => {
-		if (messagesEndRef.current) {
-			messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
-		}
-	}, [messages]);
-
-	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+	const handleSubmit = async (e: React.FormEvent<HTMLButtonElement>) => {
 		e.preventDefault();
 		if (!textInput.trim()) return;
 
 		setLoading(true);
-
-		const newMessage = [textInput, ""];
-		setMessages((prevMessages) => [...prevMessages, newMessage]);
-		setTextInput("");
 
 		try {
 			const response = await fetch("/api/summerizer", {
@@ -35,29 +23,22 @@ const Page: React.FC = () => {
 				}),
 			});
 
-			if (!response.ok) throw new Error(response.statusText);
+			if (!response.ok) {
+				setMessages((await response.json()).message);
+				throw new Error(response.statusText);
+			}
 
 			const data = await response.json();
-			newMessage[1] = data.result;
 
-			setMessages((prevMessages) => {
-				const updatedMessages = [...prevMessages];
-				updatedMessages.pop();
-				updatedMessages.push(newMessage);
-				return updatedMessages;
-			});
+			setMessages(data.result);
 		} catch (error) {
 			console.error("Error occurred: ", error);
-			setMessages((prevMessages) => [
-				...prevMessages,
-				["Error occurred"],
-			]);
 		} finally {
 			setLoading(false);
 		}
 	};
 
-	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+	const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
 		setTextInput(e.target.value);
 	};
 
@@ -105,61 +86,47 @@ const Page: React.FC = () => {
 				</p>
 			</section>
 
-			<section
-				className={`container mx-auto py-8 flex flex-col h-[81vh] overflow-y-auto ${
-					messages.length > 0 ? "justify-end gap-8" : "justify-center"
-				}`}
-			>
-				{/* Messages Section */}
-				<div className="flex flex-col gap-2">
-					{messages.map((listStr, index) => (
-						<React.Fragment key={index}>
-							{/* User Input */}
-							<div className="flex justify-end">
-								<div className="bg-accent text-secondary p-2 rounded-md max-w-md">
-									<ReactMarkdown>{listStr[0]}</ReactMarkdown>
-								</div>
-							</div>
-							{/* Model Response */}
-							<div className="flex justify-start">
-								<div className="bg-primary text-accent p-2 rounded-md max-w-md">
-									{loading &&
-									index === messages.length - 1 ? (
-										<Loader2 className="animate-spin h-8 w-8 text-accent" />
-									) : (
-										<ReactMarkdown>
-											{listStr[1]}
-										</ReactMarkdown>
-									)}
-								</div>
-							</div>
-						</React.Fragment>
-					))}
-					<div ref={messagesEndRef} />
-				</div>
-
-				{/* Form Section */}
-				<form
-					className="flex gap-4 mb-8 justify-center"
-					onSubmit={handleSubmit}
-				>
-					<input
-						type="text"
-						placeholder="Enter text to summarize..."
+			<section className="container mx-auto py-8 flex h-[81vh] overflow-y-auto justify-between">
+				{/* Input Section */}
+				<div className="w-[45%] flex flex-col">
+					<label className="mb-2 text-lg text-white font-bold">
+						Enter your text:
+					</label>
+					<textarea
+						placeholder="Paste or type a large paragraph here..."
 						value={textInput}
 						onChange={handleInputChange}
-						className="w-[80%] rounded-md py-3 px-4 focus:outline-none bg-secondary text-accent border-2 border-transparent focus:border-accent transition-all duration-500 ease-in-out"
+						className="w-full h-[75vh] rounded-md py-3 px-4 focus:outline-none bg-secondary text-accent border-2 border-transparent focus:border-accent transition-all duration-500 ease-in-out resize-none"
 						disabled={loading}
 					/>
 					<button
 						type="submit"
+						onClick={handleSubmit}
 						disabled={loading}
-						className="flex justify-center items-center bg-button text-secondary px-4 py-2 rounded-md transition-colors hover:bg-accent"
+						className="mt-4 flex justify-center items-center bg-button text-secondary px-4 py-2 rounded-md transition-colors hover:bg-accent"
 					>
 						<ArrowRight className="h-5 w-5 mr-2" />
 						<span>Send</span>
 					</button>
-				</form>
+				</div>
+
+				{/* Output Section */}
+				<div className="w-[45%] flex flex-col">
+					<label className="mb-2 text-lg text-white">
+						Processed Output:
+					</label>
+					<div className="h-[75vh] bg-primary text-accent p-4 rounded-md overflow-y-auto border-2 border-transparent">
+						{loading ? (
+							<div className="h-full w-full flex justify-center items-center">
+								<Loader2 className="animate-spin h-20 w-20 text-accent " />
+							</div>
+						) : (
+							<div className="whitespace-pre-wrap">
+								{messages}
+							</div>
+						)}
+					</div>
+				</div>
 			</section>
 
 			<Footer />

@@ -4,24 +4,31 @@ import { config } from 'dotenv';
 config();
 const HF_TOKEN = process.env.BART_KEY;
 
-export async function POST(req: NextRequest) {
-  // Check if the API key is provided
-  if (!HF_TOKEN) {
-    return NextResponse.json({ message: 'API key not found' }, { status: 500 });
-  }
+if (!HF_TOKEN) {
+  throw new Error("Hugging Face API key (BART_KEY) is missing from environment variables.");
+}
 
+export async function POST(req: NextRequest) {
   let body;
+
   try {
-    // Parse the request body
+    // Parse the incoming request body
     body = await req.json();
   } catch (error) {
-    return NextResponse.json({ message: 'Invalid JSON payload', error: error }, { status: 400 });
+    console.error("Failed to parse JSON:", error);
+    return NextResponse.json({ message: 'Invalid JSON payload' }, { status: 400 });
   }
 
   const { content } = body;
-  if (!content) {
-    return NextResponse.json({ message: 'Content is required' }, { status: 400 });
+
+  if (!content || typeof content !== 'string') {
+    return NextResponse.json({ message: 'Content must be a non-empty string' }, { status: 400 });
   }
+
+  const data = content.trim();
+  const maxLength = Math.floor(data.length / 10) > 500 ? 500 : Math.floor(data.length / 10);
+  const minLength = maxLength === 500 ? 250 : Math.floor(data.length / 12);
+  console.log(`Processing content with length: ${data.length} (min: ${minLength}, max: ${maxLength})`);
 
   try {
     const response = await fetch(
@@ -32,25 +39,36 @@ export async function POST(req: NextRequest) {
           "Content-Type": "application/json",
         },
         method: "POST",
-        body: JSON.stringify({ inputs: content }),
+        body: JSON.stringify({
+          inputs: data,
+          parameters: {
+            min_length: minLength,
+            max_length: maxLength,
+          },
+        }),
       }
     );
 
     if (!response.ok) {
-      const error = await response.json();
-      return NextResponse.json({ message: 'Error from model API', error }, { status: response.status });
+      const errorData = await response.json();
+      console.error("Model API error:", errorData);
+      return NextResponse.json(
+        { message: 'Data Too Large', error: errorData },
+        { status: response.status }
+      );
     }
 
-    const result = (await response.json())[0].summary_text;
+    const responseData = await response.json();
+    const summary = responseData[0]?.summary_text;
 
-    // Return response with the generated summary
-    if (result) {
-      return NextResponse.json({ result }, { status: 200 });
+    if (summary) {
+      return NextResponse.json({ result: summary }, { status: 200 });
+    } else {
+      console.warn("Empty summary received from the model.");
+      return NextResponse.json({ message: 'No summary generated' }, { status: 204 });
     }
-
-    return NextResponse.json({ message: 'No summary generated' }, { status: 204 });
   } catch (error) {
-    console.error('Error during inference:', error);
+    console.error("Error during inference:", error);
     return NextResponse.json({ message: 'Error during inference', error }, { status: 500 });
   }
 }
