@@ -5,22 +5,22 @@ import { Header, Footer } from "@/components";
 
 const HomePage: React.FC = () => {
 	return (
-		<div className="min-h-screen bg-secondary text-accent">
+		<div className="min-h-screen bg-secondary text-accent flex flex-col">
 			{/* Header */}
 			<Header isHomePage />
 
 			{/* Introduction Section */}
-			<section className="container mx-auto py-8">
+			<section className="container mx-auto py-8 px-4">
 				<h2 className="text-3xl font-bold mb-4">
 					Welcome to Our LLM Project
 				</h2>
-				<div className="px-4">
-					<p className="mb-2">
+				<div className="space-y-4">
+					<p>
 						Discover the various models and filters used in large
 						language models. Our project aims to showcase how these
 						models can be applied in different scenarios.
 					</p>
-					<p className="mb-2">
+					<p>
 						We offer a range of options to explore, from fine-tuning
 						models to generating text. Dive in to learn more about
 						these fascinating tools.
@@ -29,20 +29,19 @@ const HomePage: React.FC = () => {
 			</section>
 
 			{/* Filter/Model Selection Section */}
-			<section className="container mx-auto py-10 px-10 bg-primary rounded-lg">
+			<section className="container mx-auto py-10 px-4 md:px-10 bg-primary rounded-lg">
 				<h3 className="text-2xl font-bold pb-6">Select a Model</h3>
-				<div className="flex gap-4 px-6 flex-wrap justify-center">
+				<div className="flex flex-wrap gap-4 justify-center">
 					{Models.map((model) => (
 						<a
 							key={model.name}
 							href={model.link}
-							className="group block w-[49%] bg-button p-4 rounded-lg hover:bg-accent transition-all duration-500 ease-in-out text-secondary"
+							className="group block w-full md:w-[45%] lg:w-[30%] bg-button p-4 rounded-lg hover:bg-accent transition-all duration-500 ease-in-out text-secondary"
 						>
 							<h3 className="text-xl font-bold">{model.name}</h3>
 							<h5 className="text-md font-semibold pl-4">
 								{model.company}
 							</h5>
-
 							<p className="pl-4 text-sm">{model.desc}</p>
 							<p className="float-right text-sm italic font-light py-2 px-2 rounded-3xl group-hover:underline transition-all duration-500 ease-in-out">
 								{model.type}
@@ -53,17 +52,17 @@ const HomePage: React.FC = () => {
 			</section>
 
 			{/* Team Section */}
-			<section className="container mx-auto py-8">
+			<section className="container mx-auto py-8 px-4">
 				<h2 className="text-3xl font-bold mb-4">Meet the Team</h2>
-				<div className="flex flex-wrap gap-4 justify-between px-16 py-4">
+				<div className="flex flex-wrap gap-4 justify-center">
 					{Members.map((member) => (
 						<div key={member.name} className="text-center">
 							<Image
 								src={member.image}
 								alt={member.name}
-								width={500}
-								height={500}
-								className="mx-auto rounded-full w-24 h-24 mb-2"
+								width={200}
+								height={200}
+								className="mx-auto rounded-full mb-2"
 							/>
 							<p>{member.name}</p>
 						</div>
@@ -72,11 +71,11 @@ const HomePage: React.FC = () => {
 			</section>
 
 			{/* Resources Section */}
-			<section className="container mx-auto py-8">
+			<section className="container mx-auto py-8 px-4">
 				<h2 className="text-3xl font-bold mb-4">
 					Resources & Documentation
 				</h2>
-				<ul className="list-disc list-inside space-y-2 px-4">
+				<ul className="list-disc list-inside space-y-2">
 					<li>
 						<a
 							href="https://example.com/llm-guide"
@@ -97,7 +96,7 @@ const HomePage: React.FC = () => {
 			</section>
 
 			{/* Contact Section */}
-			<section className="container mx-auto py-8 px-6 bg-primary rounded-lg mb-10">
+			<section className="container mx-auto py-8 px-4 md:px-6 bg-primary rounded-lg mb-10">
 				<h2 className="text-3xl font-bold mb-4">Contact Us</h2>
 				<p>
 					If you have any questions or need further information, feel
@@ -111,6 +110,7 @@ const HomePage: React.FC = () => {
 					.
 				</p>
 			</section>
+
 			<Footer />
 		</div>
 	);

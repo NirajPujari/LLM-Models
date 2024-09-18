@@ -86,9 +86,9 @@ const Page: React.FC = () => {
 				</p>
 			</section>
 
-			<section className="container mx-auto py-8 flex h-[81vh] overflow-y-auto justify-between">
+			<section className="container mx-auto py-8 flex flex-col md:flex-row gap-8">
 				{/* Input Section */}
-				<div className="w-[45%] flex flex-col">
+				<div className="w-full md:w-[45%] flex flex-col">
 					<label className="mb-2 text-lg text-white font-bold">
 						Enter your text:
 					</label>
@@ -96,7 +96,7 @@ const Page: React.FC = () => {
 						placeholder="Paste or type a large paragraph here..."
 						value={textInput}
 						onChange={handleInputChange}
-						className="w-full h-[75vh] rounded-md py-3 px-4 focus:outline-none bg-secondary text-accent border-2 border-transparent focus:border-accent transition-all duration-500 ease-in-out resize-none"
+						className="w-full h-[40vh] md:h-[75vh] rounded-md py-3 px-4 focus:outline-none bg-secondary text-accent border-2 border-transparent focus:border-accent transition-all duration-500 ease-in-out resize-none"
 						disabled={loading}
 					/>
 					<button
@@ -111,11 +111,11 @@ const Page: React.FC = () => {
 				</div>
 
 				{/* Output Section */}
-				<div className="w-[45%] flex flex-col">
+				<div className="w-full md:w-[45%] flex flex-col">
 					<label className="mb-2 text-lg text-white">
 						Processed Output:
 					</label>
-					<div className="h-[75vh] bg-primary text-accent p-4 rounded-md overflow-y-auto border-2 border-transparent">
+					<div className="h-[40vh] md:h-[75vh] bg-primary text-accent p-4 rounded-md overflow-y-auto border-2 border-transparent">
 						{loading ? (
 							<div className="h-full w-full flex justify-center items-center">
 								<Loader2 className="animate-spin h-20 w-20 text-accent " />

@@ -61,15 +61,17 @@ const Page: React.FC = () => {
 			<Header />
 
 			<section className="container mx-auto py-8">
-				<h1 className="text-3xl font-bold mb-6">Upload an Image</h1>
+				<h1 className="text-3xl font-bold mb-6 text-center md:text-left">
+					Upload an Image
+				</h1>
 
 				{/* Form Section */}
 				<form
-					className="container flex flex-col gap-4 mb-8"
+					className="flex flex-col gap-4 mb-8"
 					onSubmit={handleSubmit}
 				>
-					<div className="flex gap-4 items-center justify-between">
-						<div className="flex gap-10 items-center">
+					<div className="flex flex-col md:flex-row gap-4 items-center justify-between">
+						<div className="flex gap-4 items-center">
 							<input
 								id="image-upload"
 								title="image"
@@ -104,7 +106,7 @@ const Page: React.FC = () => {
 				</form>
 
 				{/* Image Display and Description Section */}
-				<div className="w-full flex justify-center items-center flex-col gap-10">
+				<div className="w-full flex flex-col items-center gap-10">
 					{loading && (
 						<div className="flex items-center justify-center">
 							<Loader2 className="animate-spin h-8 w-8 text-accent" />
@@ -113,8 +115,9 @@ const Page: React.FC = () => {
 					)}
 
 					{error && !loading && (
-						<p className="text-red-500">{error}</p>
+						<p className="text-red-500 text-center">{error}</p>
 					)}
+
 					{description && (
 						<div className="text-xl font-medium text-center text-accent">
 							<p>{description}</p>
@@ -122,12 +125,12 @@ const Page: React.FC = () => {
 					)}
 
 					{imageFile && (
-						<div className="max-w-[45rem] max-h-[45rem]">
+						<div className="max-w-full md:max-w-[45rem] max-h-[45rem] overflow-hidden">
 							<Image
 								src={URL.createObjectURL(imageFile)}
 								alt="Uploaded image"
-								width={screen.width}
-								height={screen.height}
+								width={800} // Adjust width as needed
+								height={600} // Adjust height as needed
 								className="rounded-lg shadow-lg max-w-full h-auto"
 							/>
 						</div>

@@ -80,12 +80,12 @@ const Page: React.FC = () => {
 	};
 
 	return (
-		<div className="min-h-screen bg-secondary text-accent flex flex-col justify-evenly">
+		<div className="min-h-screen bg-secondary text-accent flex flex-col justify-between">
 			<Header />
 
 			<section className="container mx-auto py-8">
 				{/* Model Description */}
-				<div className="flex gap-3 flex-col p-4 -mt-8">
+				<div className="flex flex-col gap-4 p-4 -mt-8">
 					<h1 className="text-3xl font-bold">
 						Model: Stable Diffusion XL Base 1.0
 					</h1>
@@ -104,7 +104,7 @@ const Page: React.FC = () => {
 					<h2 className="text-2xl font-semibold">
 						How to Use the Model
 					</h2>
-					<ul className="list-disc list-inside">
+					<ol className="list-disc list-inside">
 						<li>
 							<strong>Enter a Command:</strong> Provide a textual
 							description or prompt of the image you want to
@@ -118,14 +118,14 @@ const Page: React.FC = () => {
 							will create multiple variations based on your
 							prompt.
 							<br />
-							<ul className="list-disc list-inside pl-6">
+							<ol className="list-disc list-inside pl-6">
 								<li>
-									<strong>Mininum:</strong> 1 <br />
+									<strong>Minimum:</strong> 1 <br />
 								</li>
 								<li>
 									<strong>Maximum:</strong> 10
 								</li>
-							</ul>
+							</ol>
 						</li>
 						<li>
 							<strong>Execute:</strong> Click the
@@ -134,7 +134,7 @@ const Page: React.FC = () => {
 							request to the model and display the generated
 							images once they are ready.
 						</li>
-					</ul>
+					</ol>
 					<p>
 						For more detailed instructions or if you encounter
 						issues, please contact support.
@@ -142,33 +142,33 @@ const Page: React.FC = () => {
 				</div>
 			</section>
 
-			<section className="container mx-auto py-8">
+			<section className="container mx-auto py-8 ">
 				{/* Form Section */}
 				<form
-					className="flex flex-col gap-4 mb-8 p-4"
+					className="flex flex-col gap-4 mb-8 p-4 w-full"
 					onSubmit={handleSubmit}
 				>
 					<h1 className="text-3xl font-bold">Execute Your Command</h1>
-					<div className="flex gap-4">
+					<div className="flex flex-col md:flex-row gap-4 justify-center items-center w-full">
 						<input
 							type="text"
 							placeholder="Enter your command..."
 							value={inputText}
 							onChange={handleInputChange}
-							className="w-[80%] rounded-md py-3 px-4 focus:outline-none bg-secondary text-accent border-2 border-transparent focus:border-accent transition-all duration-500 ease-in-out"
+							className="flex-1 rounded-md py-3 px-4 focus:outline-none bg-secondary text-accent border-2 border-transparent focus:border-accent transition-all duration-500 ease-in-out max-md:w-full"
 						/>
 						<input
 							type="number"
 							placeholder="Number of images"
 							value={imageCount}
 							onChange={handleCountChange}
-							className="w-[5%] h-[53px] text-2xl rounded-md py-3 px-4 focus:outline-none bg-secondary text-accent border-2 border-transparent focus:border-accent transition-all duration-500 ease-in-out"
+							className="h-[53px] text-2xl rounded-md py-3 px-4 focus:outline-none bg-secondary text-accent border-2 border-transparent focus:border-accent transition-all duration-500 ease-in-out"
 							min="1"
 							max="10"
 						/>
 						<button
 							type="submit"
-							disabled={loading}
+							disabled={loading || inputText.length < 3}
 							className="flex justify-center items-center bg-button text-secondary px-4 py-2 rounded-md transition-colors hover:bg-accent"
 						>
 							<ArrowRight className="h-5 w-5 mr-2" />
@@ -176,9 +176,11 @@ const Page: React.FC = () => {
 						</button>
 					</div>
 				</form>
+			</section>
 
+			<section className="container mx-auto py-8 flex flex-col md:flex-row">
 				{/* Image Fetch Section */}
-				<div className="w-full flex justify-center items-center flex-col gap-10">
+				<div className="w-full md:w-[45%] flex flex-col items-center gap-10">
 					{loading && (
 						<div className="flex items-center justify-center">
 							<Loader2 className="animate-spin h-8 w-8 text-accent" />

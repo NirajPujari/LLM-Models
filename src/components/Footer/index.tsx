@@ -8,7 +8,7 @@ export const Footer = () => {
 					© {new Date().getFullYear()} LLM Project. All rights
 					reserved.
 				</p>
-				<div className="flex justify-center space-x-6">
+				<div className="flex justify-center flex-wrap gap-4">
 					<a
 						href="/privacy-policy"
 						className="text-accent relative before:content-[''] before:w-0 before:h-0.5 before:absolute before:bg-white before:left-0 before:bottom-0 before:transition-all before:duration-700 before:origin-left hover:before:w-full"

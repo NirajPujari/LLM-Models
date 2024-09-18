@@ -7,10 +7,12 @@ interface HeaderProps {
 
 export const Header: React.FC<HeaderProps> = ({ isHomePage = false }) => {
 	return (
-		<header className="header bg-primary py-6">
-			<div className="container mx-auto text-center">
-				<h1 className="text-4xl font-bold mb-2">LLM Project</h1>
-				<p className="text-lg">
+		<header className="bg-primary py-6">
+			<div className="container mx-auto text-center px-4">
+				<h1 className="text-3xl md:text-4xl font-bold mb-2">
+					LLM Project
+				</h1>
+				<p className="text-base md:text-lg">
 					Explore the world of Large Language Models and their diverse
 					applications.
 				</p>

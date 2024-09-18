@@ -82,90 +82,96 @@ const Page: React.FC = () => {
 
 			{/* Model Information Section */}
 			<section className="container mx-auto py-8">
-				<h2 className="text-2xl font-bold mb-4">Model: FLUX.1-dev</h2>
-				<p className="mb-4">
-					The <strong className="underline">FLUX.1-dev</strong> model
-					is a state-of-the-art text-to-image generation model built
-					by <strong className="underline">Black Forest Labs</strong>.
-					It utilizes deep learning techniques to create highly
-					detailed images based on user-provided textual descriptions.
-				</p>
-				<p className="mb-4">
-					This model is ideal for tasks involving artistic image
-					creation, conceptual designs, and visualizing abstract
-					ideas. The model leverages the latest advancements in the
-					Stable Diffusion model family and provides flexibility in
-					generating multiple variations of images.
-				</p>
-				<p className="mb-4">
-					To use the model, simply provide a descriptive prompt that
-					specifies what you want the model to generate. The model
-					will return images based on the prompt, using randomization
-					to create unique variations with each run.
-				</p>
+				<div className="flex flex-col gap-4 p-4 -mt-8">
+					<h2 className="text-3xl font-bold">Model: FLUX.1-dev</h2>
+					<p>
+						The <strong className="underline">FLUX.1-dev</strong>{" "}
+						model is a state-of-the-art text-to-image generation
+						model built by{" "}
+						<strong className="underline">Black Forest Labs</strong>
+						. It utilizes deep learning techniques to create highly
+						detailed images based on user-provided textual
+						descriptions.
+					</p>
+					<p>
+						This model is ideal for tasks involving artistic image
+						creation, conceptual designs, and visualizing abstract
+						ideas. The model leverages the latest advancements in
+						the Stable Diffusion model family and provides
+						flexibility in generating multiple variations of images.
+					</p>
+					<p>
+						To use the model, simply provide a descriptive prompt
+						that specifies what you want the model to generate. The
+						model will return images based on the prompt, using
+						randomization to create unique variations with each run.
+					</p>
 
-				<h3 className="text-xl font-bold mb-2">How to Use the Model</h3>
-				<ol className="list-decimal list-inside mb-4">
-					<li>
-						Enter a descriptive prompt in the input field provided.
-					</li>
-					<li>
-						Specify the number of images you want to generate
-						(between 1 and 10).
-					</li>
-					<li>
-						Click on the &quot;Execute&quot; button to trigger the
-						image generation.
-					</li>
-					<li>
-						The model will return a set of images based on the
-						prompt, which will be displayed below the input fields.
-					</li>
-					<li>
-						If needed, you can adjust the prompt or the image count
-						and run the generation again to get different results.
-					</li>
-				</ol>
+					<h3 className="text-2xl font-semibold">
+						How to Use the Model
+					</h3>
+					<ol className="list-disc list-inside">
+						<li>
+							Enter a descriptive prompt in the input field
+							provided.
+						</li>
+						<li>
+							Specify the number of images you want to generate
+							(between 1 and 10).
+						</li>
+						<li>
+							Click on the &quot;Execute&quot; button to trigger
+							the image generation.
+						</li>
+						<li>
+							The model will return a set of images based on the
+							prompt, which will be displayed below the input
+							fields.
+						</li>
+						<li>
+							If needed, you can adjust the prompt or the image
+							count and run the generation again to get different
+							results.
+						</li>
+					</ol>
 
-				<p>
-					<strong>Note:</strong> The more specific and detailed your
-					prompt, the more accurate the model&apos;s output will be.
-					Additionally, slight variations in the prompt can lead to
-					entirely different visual outputs, so feel free to
-					experiment!
-				</p>
+					<p>
+						<strong>Note:</strong> The more specific and detailed
+						your prompt, the more accurate the model&apos;s output
+						will be. Additionally, slight variations in the prompt
+						can lead to entirely different visual outputs, so feel
+						free to experiment!
+					</p>
+				</div>
 			</section>
 
-			<section className="container mx-auto py-8">
-				<h1 className="text-3xl font-bold mb-6">
-					Execute Your Command
-				</h1>
-
+			<section className="container mx-auto py-8 ">
 				{/* Form Section */}
 				<form
-					className="flex flex-col gap-4 mb-8"
+					className="flex flex-col gap-4 mb-8 p-4 w-full"
 					onSubmit={handleSubmit}
 				>
-					<div className="flex gap-4">
+					<h1 className="text-3xl font-bold">Execute Your Command</h1>
+					<div className="flex flex-col md:flex-row gap-4 justify-center items-center w-full">
 						<input
 							type="text"
 							placeholder="Enter your command..."
 							value={inputText}
 							onChange={handleInputChange}
-							className="w-[80%] rounded-md py-3 px-4 focus:outline-none bg-secondary text-accent border-2 border-transparent focus:border-accent transition-all duration-500 ease-in-out"
+							className="flex-1 rounded-md py-3 px-4 focus:outline-none bg-secondary text-accent border-2 border-transparent focus:border-accent transition-all duration-500 ease-in-out max-md:w-full"
 						/>
 						<input
 							type="number"
 							placeholder="Number of images"
 							value={imageCount}
 							onChange={handleCountChange}
-							className="w-[5%] h-[53px] text-2xl rounded-md py-3 px-4 focus:outline-none bg-secondary text-accent border-2 border-transparent focus:border-accent transition-all duration-500 ease-in-out"
+							className="h-[53px] text-2xl rounded-md py-3 px-4 focus:outline-none bg-secondary text-accent border-2 border-transparent focus:border-accent transition-all duration-500 ease-in-out"
 							min="1"
 							max="10"
 						/>
 						<button
 							type="submit"
-							disabled={loading}
+							disabled={loading || inputText.length < 3}
 							className="flex justify-center items-center bg-button text-secondary px-4 py-2 rounded-md transition-colors hover:bg-accent"
 						>
 							<ArrowRight className="h-5 w-5 mr-2" />
@@ -173,9 +179,11 @@ const Page: React.FC = () => {
 						</button>
 					</div>
 				</form>
+			</section>
 
+			<section className="container mx-auto py-8 flex flex-col md:flex-row">
 				{/* Image Fetch Section */}
-				<div className="w-full flex justify-center items-center flex-col gap-10">
+				<div className="w-full md:w-[45%] flex flex-col items-center gap-10">
 					{loading && (
 						<div className="flex items-center justify-center">
 							<Loader2 className="animate-spin h-8 w-8 text-accent" />

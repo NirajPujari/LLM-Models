@@ -33,18 +33,19 @@ export const Models: modelT[] = [
     desc: "The nlpconnect/vit-gpt2-image-captioning model generates descriptive captions for images by combining a vision transformer (ViT) for image understanding and GPT-2 for text generation."
   },
   {
-    name: "Gemma 2 2B IT",
-    company: "Google",
+    name: "Meta-LLaMA-3-8B-Instruct",
+    company: "Meta AI",
     type: "chat-bot",
     link: "chat-bot",
-    desc: "The google/gemma-2-2b-it model is a conversational AI model designed for generating natural language responses based on input messages, supporting interactive and context-aware text completion."
-  },
+    desc: "The Meta-LLaMA-3-8B-Instruct model is a conversational AI built for providing detailed, contextual responses. It's ideal for tasks like chatbots, conversational agents, and information retrieval, using transformer-based architecture for better understanding."
+  }
+  ,
   {
     name: "BART-Large-CNN",
     company: "Facebook",
     type: "summarization",
     link: "summerizer",
-    desc: "The facebook/bart-large-cnn model is an abstractive summarization model developed by Facebook. It is designed to generate concise summaries of large pieces of text while retaining the most important information. The model is based on the BART architecture, a transformer-based sequence-to-sequence model optimized for text summarization."
+    desc: "The facebook/bart-large-cnn model is an abstractive summarization model by Facebook. It generates concise summaries of long texts, focusing on key information. Built on the BART architecture, it is optimized for summarization tasks using a transformer-based sequence-to-sequence approach."
   }
 
 ];
