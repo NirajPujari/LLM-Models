@@ -183,7 +183,7 @@ const Page: React.FC = () => {
 
 			<section className="container mx-auto py-8 flex flex-col md:flex-row">
 				{/* Image Fetch Section */}
-				<div className="w-full md:w-[45%] flex flex-col items-center gap-10">
+				<div className="w-full flex flex-col items-center gap-10">
 					{loading && (
 						<div className="flex items-center justify-center">
 							<Loader2 className="animate-spin h-8 w-8 text-accent" />
