@@ -9,7 +9,7 @@ const Page: React.FC = () => {
 	const [loading, setLoading] = useState<boolean>(false);
 	const [error, setError] = useState<string | null>(null);
 	const [inputText, setInputText] = useState<string>("");
-	const [imageCount, setImageCount] = useState<number>(5);
+	const [imageCount, setImageCount] = useState<number>(2);
 
 	const fetchData = async () => {
 		setLoading(true);
