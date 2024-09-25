@@ -116,7 +116,7 @@ const Page: React.FC = () => {
 				</section>
 			) : (
 				<section className="container mx-auto px-8 flex h-[54.8vh]">
-					<div className="flex flex-col gap-2 overflow-y-auto w-full justify-end">
+					<div className="flex flex-col gap-2 w-full justify-end h-full">
 						{messages.map((listStr, index) => (
 							<React.Fragment key={index}>
 								{/* User Message */}
