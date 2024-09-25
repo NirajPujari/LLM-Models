@@ -70,7 +70,6 @@ const Page: React.FC = () => {
 
 			{messages.length === 0 ? (
 				<section className="container mx-auto py-8 px-4">
-					{/* Model Description */}
 					<h2 className="text-2xl font-bold mb-4">
 						Model: Meta-LLaMA-3-8B-Instruct
 					</h2>
@@ -115,8 +114,8 @@ const Page: React.FC = () => {
 					</p>
 				</section>
 			) : (
-				<section className="container mx-auto px-8 flex h-[54.8vh]">
-					<div className="flex flex-col gap-2 w-full justify-end h-full">
+				<section className="container mx-auto px-8 h-[54.8vh]">
+					<div className="flex flex-col gap-2 w-full h-full overflow-y-auto">
 						{messages.map((listStr, index) => (
 							<React.Fragment key={index}>
 								{/* User Message */}
@@ -148,7 +147,7 @@ const Page: React.FC = () => {
 			)}
 
 			<section
-				className={`container mx-auto py-8 flex flex-col justify-end gap-8  overflow-y-auto transition-all duration-500 ease-in-out ${
+				className={`container mx-auto py-8 flex flex-col justify-end gap-8 transition-all duration-500 ease-in-out ${
 					messages.length === 0 ? "h-[26vh]" : "h-fit"
 				}`}
 			>
