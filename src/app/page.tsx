@@ -1,4 +1,3 @@
-import Image from "next/image";
 import React from "react";
 import { Members, Models } from "@/data";
 import { Header, Footer } from "@/components";
@@ -47,25 +46,6 @@ const HomePage: React.FC = () => {
 								{model.type}
 							</p>
 						</a>
-					))}
-				</div>
-			</section>
-
-			{/* Team Section */}
-			<section className="container mx-auto py-8 px-4">
-				<h2 className="text-3xl font-bold mb-4">Meet the Team</h2>
-				<div className="flex flex-wrap gap-4 justify-center">
-					{Members.map((member) => (
-						<div key={member.name} className="text-center">
-							<Image
-								src={member.image}
-								alt={member.name}
-								width={200}
-								height={200}
-								className="mx-auto rounded-full mb-2"
-							/>
-							<p>{member.name}</p>
-						</div>
 					))}
 				</div>
 			</section>
